@@ -45,5 +45,5 @@
         "same": "Same age as the prowler"
     },
 
-    "win_message": "You won! The prowler was {name}"
+    "win_message": "You won! The prowler was "
 }

@@ -79,7 +79,7 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
                         const img = document.getElementById("imgCromo"); 
                         const caja = cromo.querySelector(".CajaAcierto"); 
                         img.src = personajeElegido.rutaImagenCromo; 
-                        caja.textContent = `¡Has ganado! El merodeador era ${personajeSecreto.nombre}`; 
+                        caja.textContent = this.traducciones.win_message + personajeSecreto.nombre; 
                         cromo.classList.add("mostrar");
                     }
                 }

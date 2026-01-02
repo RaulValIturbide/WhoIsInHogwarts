@@ -45,5 +45,5 @@
         "same": "Edad del merodeador"
     },
 
-    "win_message": "¡Has ganado! El merodeador era {name}"
+    "win_message": "¡Has ganado! El merodeador era "
 }
