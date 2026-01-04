@@ -56,7 +56,7 @@ gestorPersonaje.CargarDatosJSON(listaPersonajes).then(() => {
      gestorBusqueda.setPersonajeSecreto(gestorPersonaje.PersonajeDeHoy(listaPersonajes));
 
    //PRUEBAS
-   // gestorBusqueda.setPersonajeSecreto(listaPersonajes[10]);
+    //gestorBusqueda.setPersonajeSecreto(listaPersonajes[6]);
 
     // 5. ACTIVAR BOTONES DE IDIOMA 
 

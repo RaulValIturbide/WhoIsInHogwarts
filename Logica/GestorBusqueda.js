@@ -61,7 +61,7 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
         ${this.comparar(this.traducciones.attributes.gender, personajeElegido.genero, personajeSecreto.genero)}
         ${this.comparar(this.traducciones.attributes.magic, personajeElegido.magico, personajeSecreto.magico)} 
         ${this.comparar(this.traducciones.attributes.species, personajeElegido.especie, personajeSecreto.especie)} 
-        ${this.comparar(this.traducciones.attributes.birthday, personajeElegido.nacimiento, personajeSecreto.nacimiento)} 
+        ${this.comparar(this.traducciones.attributes.birthday, personajeElegido.nacimiento, personajeSecreto.nacimiento,personajeElegido)} 
         ${this.comparar(this.traducciones.attributes.alignment, personajeElegido.alineamiento, personajeSecreto.alineamiento)} 
         ${this.comparar(this.traducciones.attributes.state, personajeElegido.estado, personajeSecreto.estado)} 
         </div> `); 
@@ -87,12 +87,10 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
         });
 }
 
-
-
-comparar(etiqueta, valorJugador, valorCorrecto) {
+comparar(etiqueta, valorJugador, valorCorrecto,personajeElegido = null) {
 
     // 1. TRADUCIR BOOLEANOS (vivo / muerto)
-    if (etiqueta.value === "nacimiento") {
+    if (etiqueta.value === "estado") {
         valorJugador = valorJugador ? this.traducciones.values.alive : this.traducciones.values.dead;
         valorCorrecto = valorCorrecto ? this.traducciones.values.alive : this.traducciones.values.dead;
     }
@@ -129,18 +127,24 @@ comparar(etiqueta, valorJugador, valorCorrecto) {
 
             // Para evitar aciertos falsos
             valorCorrecto = this.traducciones.age_compare.same;
+        }else{
+            valorJugador = this.traducciones.values.unknown;
         }
     }
 
-    // 4. CLASE CSS (acierto, parcial, fallo)
-    let clase = "fallo";
+    // 4. CLASE CSS 
+    
+    //let clase = "fallo";
 
-    if (valorJugador === valorCorrecto) {
-        clase = "acierto";
-    } 
+    //if (valorJugador === valorCorrecto && etiqueta != this.traducciones.attributes.birthday) {
+    //    clase = "acierto";
+    //} 
+    
+    
     //TODO AQUÍ EN ALGÚN MOMENTO DEBERÍA DE IMPLEMENTAR LAS POSIBILIDADES PARCIALES
-
-    // 5. DEVOLVER SOLO EL VALOR (sin etiqueta)
+     //Prueba Parcialidad 
+     let clase = this.PintarEtiquetas(etiqueta,valorJugador,valorCorrecto,personajeElegido);
+    // 5. DEVOLVER SOLO EL VALOR 
     return `
         <div class="atributo ${clase}">
             ${valorJugador}
@@ -148,6 +152,46 @@ comparar(etiqueta, valorJugador, valorCorrecto) {
     `;
 }
 
+    //Metodo para pintar si el jugador acierta (verde), parcial(amarillo) o falla (rojo)
+    PintarEtiquetas(etiqueta,valorJugador,valorCorrecto,personajeElegido = null){
+        let clase = "parcial";
+        
+        if(etiqueta == this.traducciones.attributes.birthday){
+            if(personajeElegido.nombre == this.personajeSecreto.nombre){
+                clase = "acierto";
+            }else{
+                if(valorCorrecto == this.traducciones.values.unknown){
+                    clase = "parcial";
+                }else if(personajeElegido.nombre == this.personajeSecreto.nombre){
+                    clase = "acierto";
+                }
+            }   
+        }else if (etiqueta == this.traducciones.attributes.alignment){
+            
+            //Si coincide
+            if(valorJugador === valorCorrecto){
+                clase = "acierto";
+            }else{
+            //Si comparte palabra se pone en parcial
+            const partesJugador = valorJugador.split("-");
+            const partesCorrecto = valorCorrecto.split("-");
+
+            const coincide = partesJugador.some(p => partesCorrecto.includes(p));
+            if(coincide){
+                clase = "parcial";
+            }else{
+                clase = "fallo";
+            }
+            }
+        }else{
+            if(valorJugador === valorCorrecto){
+                clase = "acierto";
+            }else{
+                clase = "fallo";
+            }
+        }      
+        return clase;
+    }
 
 
     setPersonajeSecreto(personaje) { 
