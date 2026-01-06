@@ -34,7 +34,7 @@ Cada día aparece un personaje diferente de Hogwarts y tu misión es adivinar qu
  - **JSON** para la gestión de idiomas y personajes
   
  ---
-         -
+         
 ## 🌍 Idiomas
 
 El juego está disponible en:
