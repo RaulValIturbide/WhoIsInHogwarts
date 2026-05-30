@@ -15,7 +15,11 @@ CargarDatosJSON(lista) {
                     p.sangre,
                     p.estado,
                     p.rutaImagenIcon,
-                    p.rutaImagenCromo
+                    p.rutaImagenCromo,
+                    p.frase_en,
+                    p.frase_en_ref,
+                    p.frase_es,
+                    p.frase_es_ref
                 );
                 lista.push(personaje);
             });

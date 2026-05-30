@@ -54,5 +54,34 @@
         "same": "Same age as the prowler"
     },
 
-    "win_message": "You won! The prowler was "
+    "win_message": "You won! The prowler was ",
+    "win_intentos": "You got it in {n} attempts",
+    "win_nuevo_cromo": "You got a new sticker!",
+    "win_cromo_repetido": "You already had this one, well done!",
+    "win_ver_album": "View my album",
+
+    "modal": {
+        "tab_login": "Log in",
+        "tab_register": "Sign up",
+        "login_title": "Welcome back",
+        "register_title": "Create account",
+        "label_name": "Name",
+        "label_email": "Email",
+        "label_password": "Password",
+        "placeholder_name": "Your name",
+        "placeholder_email": "you@email.com",
+        "placeholder_password": "••••••••",
+        "btn_login": "Log in",
+        "btn_register": "Sign up",
+        "solemne": "I solemnly swear that I am up to no good",
+        "logout": "Mischief managed (log out)"
+    },
+
+    "album": {
+        "titulo": "Trapped Prowlers",
+        "vacio": "You haven't trapped any prowler yet.\nPlay to fill your album.",
+        "btn": "My sticker album",
+        "intento": "attempt",
+        "intentos": "attempts"
+    }
 }

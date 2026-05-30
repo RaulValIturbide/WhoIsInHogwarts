@@ -40,8 +40,56 @@
     <div class="opciones">
         <img id="IdiomaSpain" src="img/SpainFlag.svg">
         <img id="IdiomaEnglish" src="img/EnglishFlag.png">
-        <!-- TODO los ajustes <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">-->
+        <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">
     </div>
+
+    <!-- PoP UP para el login/registro-->
+    <div class="Login" id="Caja_Login">
+        <div class="modal-inner">
+            <button id="Close_Login" aria-label="Cerrar">✕</button>
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
+                <button class="tab-btn" data-tab="register">Registrarse</button>
+            </div>
+
+            <!-- Login -->
+            <div class="tab-content active" id="tab-login">
+                <h2>Bienvenido de nuevo</h2>
+                <form id="form-login">
+                    <label>Email</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                    <label>Contraseña</label>
+                    <div class="input-pass">
+                        <input type="password" placeholder="••••••••" required>
+                        <button type="button" class="btn-ojo" aria-label="Mostrar contraseña">👁</button>
+                    </div>
+                    <button type="submit" class="btn-primary">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Registro -->
+            <div class="tab-content" id="tab-register">
+                <h2>Crear cuenta</h2>
+                <form id="form-register">
+                    <label>Nombre</label>
+                    <input type="text" placeholder="Tu nombre" required>
+                    <label>Email</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                    <label>Contraseña</label>
+                    <div class="input-pass">
+                        <input type="password" placeholder="••••••••" required>
+                        <button type="button" class="btn-ojo" aria-label="Mostrar contraseña">👁</button>
+                    </div>
+                    <label class="label-solemne">
+                        <input type="checkbox" id="check-solemne" required>
+                        <span id="texto-solemne">Juro solemnemente que mis intenciones no son buenas</span>
+                    </label>
+                    <button type="submit" class="btn-primary">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <h1 class="titulo">Who is Prowling Around Hogwarts Tonight?</h1>
     <div class="huellas"></div>
 
@@ -53,21 +101,73 @@
     </div>
 
     <div class="bloque">
-        <input type="text" class="buscador" placeholder="Escribe el nombre de un personaje">
+        <div class="buscador-fila">
+            <input type="text" class="buscador" placeholder="Escribe el nombre de un personaje">
+            <button id="btn-dados" title="Probar suerte">🎲</button>
+        </div>
         <div class="resultados"></div>
     </div>
 
     <div class="CromoPersonajeSecreto">
-        <img id="imgCromo" >
+        <button id="btn-cerrar-cromo">✕</button>
+        <img id="imgCromo">
         <div class="CajaAcierto"></div>
+        <div id="cromo-intentos"></div>
+        <div id="cromo-mensaje-coleccion"></div>
+        <button id="btn-ver-album" style="display:none;margin-top:10px;width:100%;background:linear-gradient(135deg,#5c3a1e,#8a5c2a);color:#f5e6c8;border:1px solid #c9a87a;border-radius:6px;padding:7px;font-size:12px;font-family:Georgia,serif;cursor:pointer;letter-spacing:0.5px;"></button>
     </div>
 
-    <!-- LÓGICA -->
+    <!-- Album de cromos -->
+    <div id="album-overlay">
+        <div id="album-libro">
+            <button id="album-close">x</button>
+            <div class="album-header">
+                <h2 class="album-titulo" id="album-titulo-texto">Merodeadores atrapados</h2>
+            </div>
+            <div class="album-pages">
+                <div class="album-pagina">
+                    <div id="album-cromos-izq" class="album-cromos-grid"></div>
+                </div>
+                <div class="album-lomo"></div>
+                <div class="album-pagina">
+                    <div id="album-cromos-der" class="album-cromos-grid"></div>
+                </div>
+            </div>
+            <div class="album-footer">
+                <button id="album-prev" class="album-nav">&#8592;</button>
+                <button id="album-next" class="album-nav">&#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cromo ampliado -->
+    <div id="cromo-lightbox">
+        <div id="cromo-lightbox-inner">
+            <div id="cromo-lightbox-imagen">
+                <img id="cromo-lightbox-img" src="" alt="">
+                <div id="cromo-lightbox-nombre"></div>
+                <div id="cromo-lightbox-intentos"></div>
+                <div id="cromo-lightbox-fecha"></div>
+            </div>
+            <div id="cromo-lightbox-frase">
+                <div id="cromo-lightbox-comillas">"</div>
+                <div id="cromo-lightbox-texto"></div>
+                <div id="cromo-lightbox-referencia"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logica del juego -->
     <script src="Logica/Personaje.js"></script>
     <script src="Logica/GestorPersonajes.js"></script>
-    <script src="Logica/GestorBusqueda.js"></script>
     <script src="Logica/GestorIdioma.js"></script>
-    <script type="module" src="app.js"></script>
-</body>
+    <script src="Logica/GestorBusqueda.js"></script>
 
+    <!-- Firebase -->
+    <script type="module" src="firebase.js"></script>
+
+    <!-- App principal -->
+    <script type="module" src="app.js"></script>
+
+</body>
 </html>

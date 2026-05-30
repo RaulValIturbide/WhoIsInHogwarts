@@ -3,6 +3,7 @@ class GestorBusqueda {
         this.listaPersonajes = listaPersonajes;
         this.traducciones = traducciones;
         this.personajeSecreto = null;
+        this.historialIntentos = [];
         this.buscador = document.querySelector(".buscador");
         this.resultados = document.querySelector(".resultados");
 
@@ -53,8 +54,9 @@ pintarResultadoCoincidencias(lista) {
     });
 }
 
-pintarResultadoJugador(personajeElegido, personajeSecreto) { 
-    const contenedor = document.querySelector(".scrollResultados"); 
+pintarResultadoJugador(personajeElegido, personajeSecreto) {
+    this.historialIntentos.unshift(personajeElegido);
+    const contenedor = document.querySelector(".scrollResultados");
     contenedor.insertAdjacentHTML("afterbegin", ` <div class="intentoFila"> <img src="${personajeElegido.rutaImagenIcon}" class="imgIntento"> 
         ${this.comparar(this.traducciones.attributes.house, personajeElegido.casa, personajeSecreto.casa)} 
         ${this.comparar(this.traducciones.attributes.blood, personajeElegido.sangre, personajeSecreto.sangre)}
@@ -73,18 +75,67 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
             setTimeout(() => { 
                 attr.classList.add("visible"); 
                 if(i === atributos.length-1){
-                    if (personajeElegido === personajeSecreto) { 
-                        console.log("Acertaste!!"); 
-                        const cromo = document.querySelector(".CromoPersonajeSecreto"); 
-                        const img = document.getElementById("imgCromo"); 
-                        const caja = cromo.querySelector(".CajaAcierto"); 
-                        img.src = personajeElegido.rutaImagenCromo; 
-                        caja.textContent = this.traducciones.win_message + personajeSecreto.nombre; 
+                    if (personajeElegido === personajeSecreto) {
+                        console.log("Acertaste!!");
+                        const cromo   = document.querySelector(".CromoPersonajeSecreto");
+                        const img     = document.getElementById("imgCromo");
+                        const caja    = cromo.querySelector(".CajaAcierto");
+                        const intentosEl = document.getElementById("cromo-intentos");
+                        const n       = this.historialIntentos.length;
+
+                        img.src = personajeElegido.rutaImagenCromo;
+                        caja.textContent = this.traducciones.win_message + personajeSecreto.nombre;
+
+                        if (intentosEl && this.traducciones.win_intentos) {
+                            intentosEl.textContent = this.traducciones.win_intentos.replace("{n}", n);
+                            intentosEl.dataset.n = n;
+                        }
+
+                        // Limpiar mensaje coleccion hasta que Firebase responda
+                        const msgEl = document.getElementById("cromo-mensaje-coleccion");
+                        if (msgEl) { msgEl.textContent = ""; msgEl.style.cssText = ""; }
+
                         cromo.classList.add("mostrar");
+
+                        // Botón cerrar
+                        document.getElementById("btn-cerrar-cromo").onclick = () => {
+                            cromo.classList.remove("mostrar");
+                        };
+
+                        // Guardar en Firestore
+                        if (typeof window.guardarPersonajeAdivinado === "function") {
+                            window.guardarPersonajeAdivinado(personajeSecreto, n, this.traducciones);
+                        }
                     }
                 }
             }, i * 600)
         });
+}
+
+repintarIntentos() {
+    if (!this.historialIntentos.length) return;
+    const contenedor = document.querySelector(".scrollResultados");
+    contenedor.innerHTML = "";
+
+    // El historial está en orden más reciente primero (unshift), lo respetamos
+    this.historialIntentos.forEach(personaje => {
+        contenedor.insertAdjacentHTML("beforeend", `
+            <div class="intentoFila">
+                <img src="${personaje.rutaImagenIcon}" class="imgIntento">
+                ${this.comparar(this.traducciones.attributes.house,      personaje.casa,         this.personajeSecreto.casa)}
+                ${this.comparar(this.traducciones.attributes.blood,      personaje.sangre,       this.personajeSecreto.sangre)}
+                ${this.comparar(this.traducciones.attributes.gender,     personaje.genero,       this.personajeSecreto.genero)}
+                ${this.comparar(this.traducciones.attributes.magic,      personaje.magico,       this.personajeSecreto.magico)}
+                ${this.comparar(this.traducciones.attributes.species,    personaje.especie,      this.personajeSecreto.especie)}
+                ${this.comparar(this.traducciones.attributes.birthday,   personaje.nacimiento,   this.personajeSecreto.nacimiento, personaje)}
+                ${this.comparar(this.traducciones.attributes.alignment,  personaje.alineamiento, this.personajeSecreto.alineamiento)}
+                ${this.comparar(this.traducciones.attributes.state,      personaje.estado,       this.personajeSecreto.estado)}
+            </div>
+        `);
+    });
+
+    // Hacer visibles todos sin animación
+    contenedor.querySelectorAll(".atributo").forEach(a => a.classList.add("visible"));
 }
 
 comparar(etiqueta, valorJugador, valorCorrecto,personajeElegido = null) {

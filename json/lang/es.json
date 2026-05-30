@@ -54,5 +54,34 @@
         "same": "Edad del merodeador"
     },
 
-    "win_message": "¡Has ganado! El merodeador era "
+    "win_message": "¡Has ganado! El merodeador era ",
+    "win_intentos": "Lo conseguiste en {n} intentos",
+    "win_nuevo_cromo": "¡Has conseguido un nuevo cromo!",
+    "win_cromo_repetido": "¡Ya tenias este cromo, bien hecho!",
+    "win_ver_album": "Ver mi album",
+
+    "modal": {
+        "tab_login": "Iniciar sesión",
+        "tab_register": "Registrarse",
+        "login_title": "Bienvenido de nuevo",
+        "register_title": "Crear cuenta",
+        "label_name": "Nombre",
+        "label_email": "Email",
+        "label_password": "Contraseña",
+        "placeholder_name": "Tu nombre",
+        "placeholder_email": "tu@email.com",
+        "placeholder_password": "••••••••",
+        "btn_login": "Entrar",
+        "btn_register": "Registrarse",
+        "solemne": "Juro solemnemente que mis intenciones no son buenas",
+        "logout": "Travesura realizada (cerrar sesion)"
+    },
+
+    "album": {
+        "titulo": "Merodeadores atrapados",
+        "vacio": "Aun no has atrapado ningun merodeador.\nJuega para llenar tu album.",
+        "btn": "Mi album de cromos",
+        "intento": "intento",
+        "intentos": "intentos"
+    }
 }
