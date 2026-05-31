@@ -56,8 +56,8 @@ pintarResultadoCoincidencias(lista) {
 
 pintarResultadoJugador(personajeElegido, personajeSecreto) {
     this.historialIntentos.unshift(personajeElegido);
-    const contenedor = document.querySelector(".scrollResultados");
-    contenedor.insertAdjacentHTML("afterbegin", ` <div class="intentoFila"> <img src="${personajeElegido.rutaImagenIcon}" class="imgIntento"> 
+    const contenedor = document.querySelector(".intentosContainer");
+    contenedor.insertAdjacentHTML("afterbegin", ` <div class="intentoFila fila"> <img src="${personajeElegido.rutaImagenIcon}" class="imgIntento"> 
         ${this.comparar(this.traducciones.attributes.house, personajeElegido.casa, personajeSecreto.casa)} 
         ${this.comparar(this.traducciones.attributes.blood, personajeElegido.sangre, personajeSecreto.sangre)}
         ${this.comparar(this.traducciones.attributes.gender, personajeElegido.genero, personajeSecreto.genero)}
@@ -114,13 +114,13 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
 
 repintarIntentos() {
     if (!this.historialIntentos.length) return;
-    const contenedor = document.querySelector(".scrollResultados");
+    const contenedor = document.querySelector(".intentosContainer");
     contenedor.innerHTML = "";
 
     // El historial está en orden más reciente primero (unshift), lo respetamos
     this.historialIntentos.forEach(personaje => {
         contenedor.insertAdjacentHTML("beforeend", `
-            <div class="intentoFila">
+            <div class="intentoFila fila">
                 <img src="${personaje.rutaImagenIcon}" class="imgIntento">
                 ${this.comparar(this.traducciones.attributes.house,      personaje.casa,         this.personajeSecreto.casa)}
                 ${this.comparar(this.traducciones.attributes.blood,      personaje.sangre,       this.personajeSecreto.sangre)}

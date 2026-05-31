@@ -31,6 +31,10 @@ body {
     z-index: -1;
 }
 
+.topbar {
+    display: contents; /* en desktop no afecta al layout actual */
+}
+
 .opciones {
      position: absolute;
      top: 50px;
@@ -197,6 +201,8 @@ body {
     backdrop-filter: blur(4px);
     border: 2px solid rgba(255, 215, 0, 0.4);
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    overflow: visible;
+    z-index: 20;
 }
 
 .bloqueResultados {
@@ -213,8 +219,30 @@ body {
     backdrop-filter: blur(4px);
     border: 2px solid rgba(255, 215, 0, 0.4);
     max-height: 300px;
-    overflow-y: auto;
+    overflow: hidden;
     padding-right: 10px;
+}
+
+.scrollResultados {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 260px;
+}
+
+/* Scrollbar sobrio */
+.scrollResultados::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.scrollResultados::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scrollResultados::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.25);
+    border-radius: 2px;
+}
+.scrollResultados::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.5);
 }
 
 .buscador-fila {
@@ -247,14 +275,16 @@ body {
     transform: rotate(20deg) scale(1.15);
 }
 
-/* Resultados */
+/* Resultados (dropdown sugerencias) */
 .resultados {
      margin-top: 10px;
      text-align: left;
-     min-height: 50px;
+     min-height: 0;
      max-height: 250px;
      overflow-y: auto;
      transition: max-height 0.3s ease;
+     position: relative;
+     z-index: 50;
 }
 
 .itemResultado {
@@ -370,13 +400,11 @@ body {
     margin-bottom: 10px;
 }
 
-/* Cada intento es una fila horizontal */
+/* Cada intento usa el mismo grid que el encabezado */
 .intentoFila {
-     display: flex;
      align-items: center;
-     gap: 10px;
-     padding: 8px;
-     border-bottom: 1px solid rgba(255,255,255,0.2);
+     padding: 8px 0;
+     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .imgIntento {
@@ -422,59 +450,65 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 80px;
+        padding-top: 70px;
         padding-bottom: 30px;
         box-sizing: border-box;
     }
 
-    /* Barra superior fija */
-    .LinksSociales {
+    /* Barra superior fija: contiene ambos divs en una fila */
+    .topbar {
+        display: flex;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         width: 100%;
         box-sizing: border-box;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-        border-top: none;
-        padding: 8px 16px;
-        display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 0;
-        margin: 0;
-        z-index: 100;
+        background: rgba(0,0,0,0.75);
+        backdrop-filter: blur(4px);
+        border-bottom: 1px solid rgba(255,215,0,0.3);
+        padding: 6px 12px;
+        z-index: 200;
     }
 
-    /* Opciones se mete dentro de LinksSociales visualmente usando flex */
-    .opciones {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: auto;
-        transform: none;
-        background: transparent;
+    .LinksSociales {
+        position: static;
+        background: none;
         border: none;
         box-shadow: none;
         backdrop-filter: none;
-        padding: 8px 12px;
-        gap: 12px;
-        z-index: 101;
-        width: auto;
+        padding: 0;
         margin: 0;
+        width: auto;
+        height: auto;
+        gap: 8px;
+    }
+
+    .opciones {
+        position: static;
+        background: none;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 0;
+        margin: 0;
+        width: auto;
+        height: auto;
+        transform: none;
+        gap: 10px;
     }
 
     .opciones img,
     .LinksSociales img {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
     }
 
     #AjustesCamaraSecreta {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
     }
 
     #label-auth {
@@ -511,14 +545,21 @@ body {
         top: auto;
         left: auto;
         transform: none;
-        width: calc(90% - 30px);
+        width: calc(92% - 30px);
         height: auto;
-        padding: 15px;
+        padding: 12px 15px;
         margin: 8px 0;
+        box-sizing: border-box;
     }
 
     .buscador {
         font-size: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .buscador-fila {
+        width: 100%;
     }
 
     /* Tabla de resultados en flujo normal */
@@ -528,34 +569,37 @@ body {
         left: auto;
         transform: none;
         width: calc(95% - 20px);
-        max-height: 300px;
+        max-height: 320px;
         padding: 10px;
-        overflow-x: auto;
+        overflow: hidden;
         margin: 8px 0;
     }
 
-    /* La tabla necesita scroll horizontal en móvil */
     .scrollResultados {
         overflow-x: auto;
+        overflow-y: auto;
+        max-height: 280px;
     }
 
     .fila {
-        grid-template-columns: 45px repeat(8, minmax(70px, 1fr));
-        gap: 5px;
-        min-width: 600px;
+        grid-template-columns: 38px repeat(8, minmax(55px, 1fr));
+        gap: 3px;
+        min-width: 500px;
     }
 
     .atributo {
-        width: 70px;
-        min-width: 70px;
-        max-width: 70px;
-        font-size: 11px;
-        padding: 4px 5px;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+        font-size: 10px;
+        padding: 4px 3px;
+        word-break: break-word;
+        overflow: hidden;
     }
 
     .imgIntento {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
     }
 
     .celdaHeader {
@@ -576,6 +620,44 @@ body {
     .resultados {
         max-height: 180px;
     }
+
+    /* Lightbox cromo en móvil */
+    #cromo-lightbox-scroll {
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    #cromo-lightbox-inner {
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        overflow: visible;
+    }
+
+    #cromo-lightbox-imagen {
+        padding: 16px;
+        border-right: none;
+        border-bottom: 2px solid #c9a87a;
+    }
+
+    #cromo-lightbox-img {
+        height: 220px;
+        max-width: 100%;
+    }
+
+    #cromo-lightbox-nombre { font-size: 18px; }
+    #cromo-lightbox-intentos { font-size: 14px; }
+    #cromo-lightbox-fecha { font-size: 12px; }
+
+    #cromo-lightbox-frase {
+        flex: none;
+        padding: 16px;
+        justify-content: flex-start;
+    }
+
+    #cromo-lightbox-comillas { font-size: 52px; margin-bottom: 8px; }
+    #cromo-lightbox-texto { font-size: 18px; line-height: 1.5; margin-bottom: 14px; }
+    #cromo-lightbox-referencia { font-size: 12px; }
 }
 
 /* ===== MODAL LOGIN / REGISTRO ===== */
@@ -959,12 +1041,22 @@ body {
     inset: 0;
     background: rgba(0,0,0,0.75);
     z-index: 3000;
-    justify-content: center;
-    align-items: center;
 }
 #cromo-lightbox.open {
-    display: flex;
+    display: block;
     animation: albumFadeIn 0.2s ease;
+}
+#cromo-lightbox-scroll {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
 }
 #cromo-lightbox-inner {
     display: flex;
@@ -975,7 +1067,6 @@ body {
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     max-width: 1360px;
     width: 92%;
-    max-height: 90vh;
 }
 
 /* Sección imagen — 1 parte */

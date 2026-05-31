@@ -151,7 +151,7 @@ function mostrarPerfil(user) {
         await signOut(auth);
         modal.classList.remove("open");
         // Resetear intentos y restaurar el modal para el próximo login
-        document.querySelector(".scrollResultados").innerHTML = "";
+        document.querySelector(".intentosContainer").innerHTML = "";
         if (window._gestorBusqueda) window._gestorBusqueda.historialIntentos = [];
         document.querySelector(".modal-inner").innerHTML = modalInnerOriginal;
         reengacharFormularios();
@@ -385,7 +385,11 @@ function abrirLightbox(d, intentosLabel) {
     document.getElementById("cromo-lightbox-referencia").textContent = ref;
 
     lb.classList.add("open");
-    lb.addEventListener("click", () => lb.classList.remove("open"), { once: true });
+    lb.addEventListener("click", (e) => {
+        if (e.target === lb || e.target === document.getElementById("cromo-lightbox-scroll")) {
+            lb.classList.remove("open");
+        }
+    }, { once: true });
 }
 
 function formatearFecha(date) {

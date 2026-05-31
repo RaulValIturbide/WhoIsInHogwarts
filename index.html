@@ -66,18 +66,20 @@
 <body>
     <img src="img/hogwartsFondo.png" class="fondo">
 
-    <div class="LinksSociales">
-        <a href="https://x.com/WhoIsInHogwarts" target="_blank">
-        <img id="RedSocialX" src="img/logoRedSocialX.png">
-        </a>
-    </div>
+    <div class="topbar">
+        <div class="LinksSociales">
+            <a href="https://x.com/WhoIsInHogwarts" target="_blank">
+            <img id="RedSocialX" src="img/logoRedSocialX.png">
+            </a>
+        </div>
 
-    <div class="opciones">
-        <img id="IdiomaSpain" src="img/SpainFlag.svg">
-        <img id="IdiomaEnglish" src="img/EnglishFlag.png">
-        <div id="btn-camara-wrapper" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-            <span id="label-auth" style="font-family:Georgia,serif;font-size:13px;color:#c9a87a;letter-spacing:0.5px;white-space:nowrap;">Inicia sesión</span>
-            <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">
+        <div class="opciones">
+            <img id="IdiomaSpain" src="img/SpainFlag.svg">
+            <img id="IdiomaEnglish" src="img/EnglishFlag.png">
+            <div id="btn-camara-wrapper" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <span id="label-auth" style="font-family:Georgia,serif;font-size:13px;color:#c9a87a;letter-spacing:0.5px;white-space:nowrap;">Inicia sesión</span>
+                <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">
+            </div>
         </div>
     </div>
 
@@ -131,19 +133,19 @@
     <h1 class="titulo">Who is Prowling Around Hogwarts Tonight?</h1>
     <div class="huellas"></div>
 
-    <div class="bloqueResultados"> 
-        <!-- Aquí insertaremos el encabezado --> 
-        <div class="encabezadoTabla fila"></div>
-        <!-- Aquí van los intentos --> 
-        <div class="scrollResultados"></div>
-    </div>
-
     <div class="bloque">
         <div class="buscador-fila">
             <input type="text" class="buscador" placeholder="Escribe el nombre de un personaje">
             <button id="btn-dados" title="Probar suerte">🎲</button>
         </div>
         <div class="resultados"></div>
+    </div>
+
+    <div class="bloqueResultados">
+        <div class="scrollResultados">
+            <div class="encabezadoTabla fila"></div>
+            <div class="intentosContainer"></div>
+        </div>
     </div>
 
     <div class="CromoPersonajeSecreto">
@@ -180,17 +182,19 @@
 
     <!-- Cromo ampliado -->
     <div id="cromo-lightbox">
-        <div id="cromo-lightbox-inner">
-            <div id="cromo-lightbox-imagen">
-                <img id="cromo-lightbox-img" src="" alt="">
-                <div id="cromo-lightbox-nombre"></div>
-                <div id="cromo-lightbox-intentos"></div>
-                <div id="cromo-lightbox-fecha"></div>
-            </div>
-            <div id="cromo-lightbox-frase">
-                <div id="cromo-lightbox-comillas">"</div>
-                <div id="cromo-lightbox-texto"></div>
-                <div id="cromo-lightbox-referencia"></div>
+        <div id="cromo-lightbox-scroll">
+            <div id="cromo-lightbox-inner">
+                <div id="cromo-lightbox-imagen">
+                    <img id="cromo-lightbox-img" src="" alt="">
+                    <div id="cromo-lightbox-nombre"></div>
+                    <div id="cromo-lightbox-intentos"></div>
+                    <div id="cromo-lightbox-fecha"></div>
+                </div>
+                <div id="cromo-lightbox-frase">
+                    <div id="cromo-lightbox-comillas">"</div>
+                    <div id="cromo-lightbox-texto"></div>
+                    <div id="cromo-lightbox-referencia"></div>
+                </div>
             </div>
         </div>
     </div>
