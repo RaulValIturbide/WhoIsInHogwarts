@@ -54,7 +54,7 @@
         "same": "Edad del merodeador"
     },
 
-    "how_to_play": "Escribe un nombre en la barra de personajes e intenta adivinar si es nuestro Merodeador. Aparecerán los detalles del personaje que hayas seleccionado:\n🔴 Rojo → Diferente a nuestro Merodeador\n🟢 Verde → Igual que nuestro Merodeador\n🟡 Amarillo → Indeterminado\n\nAyúdate de las coincidencias o no coincidencias para adivinar el merodeador de hoy.",
+    "how_to_play": "Escribe un nombre en la barra de personajes e intenta adivinar si es nuestro Merodeador. Aparecerán los detalles del personaje que hayas seleccionado:\n🔴 Rojo → Diferente a nuestro Merodeador\n🟢 Verde → Igual que nuestro Merodeador\n🟡 Amarillo → Indeterminado\n\nAyúdate de las coincidencias o no coincidencias para adivinar el merodeador de hoy.\n\n🎲 → Usa el dado si te quedas sin ideas de personajes que usar, ¡tal vez tengas suerte!",
 
     "win_message": "¡Has ganado! El merodeador era ",
     "win_intentos": "Lo conseguiste en {n} intentos",

@@ -54,7 +54,7 @@
         "same": "Same age as the prowler"
     },
 
-    "how_to_play": "Enter a name in the character bar and try your luck to guess if it's our Marauder. The details of the character you selected will appear:\n🔴 Red → Different from our Marauder\n🟢 Green → Same as our Marauder\n🟡 Yellow → Undetermined\n\nUse the matches and mismatches to guess today's Marauder.",
+    "how_to_play": "Enter a name in the character bar and try your luck to guess if it's our Marauder. The details of the character you selected will appear:\n🔴 Red → Different from our Marauder\n🟢 Green → Same as our Marauder\n🟡 Yellow → Undetermined\n\nUse the matches and mismatches to guess today's Marauder.\n\n🎲 → Use the dice if you run out of character ideas — maybe luck is on your side!",
 
     "win_message": "You won! The prowler was ",
     "win_intentos": "You got it in {n} attempts",
