@@ -417,76 +417,121 @@ body {
 /* ===================== */
 @media (max-width: 768px) {
 
-    /* Título */
-    .titulo {
-        font-size: 22px;
-        top: 100px;
-        white-space: normal;
-        width: 90%;
-        letter-spacing: 0px;
+    /* El body pasa a flujo vertical con espacio para la barra fija superior */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 80px;
+        padding-bottom: 30px;
+        box-sizing: border-box;
     }
 
-    /* Huellas más estrechas */
-    .huellas {
-        width: 100%;
-        top: 160px;
-    }
-
-    /* Barra superior: apilar social + opciones verticalmente */
+    /* Barra superior fija */
     .LinksSociales {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: 0;
-        width: auto;
-        padding: 10px 20px;
-        gap: 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+        z-index: 100;
     }
 
+    /* Opciones se mete dentro de LinksSociales visualmente usando flex */
     .opciones {
-        position: absolute;
-        top: 10px;
-        right: 10px;
+        position: fixed;
+        top: 0;
+        right: 0;
         left: auto;
         transform: none;
-        margin-right: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 8px 12px;
+        gap: 12px;
+        z-index: 101;
         width: auto;
-        padding: 10px 15px;
-        gap: 10px;
+        margin: 0;
     }
 
     .opciones img,
     .LinksSociales img {
+        width: 32px;
+        height: 32px;
+    }
+
+    #AjustesCamaraSecreta {
         width: 36px;
         height: 36px;
     }
 
-    #AjustesCamaraSecreta {
-        width: 40px;
-        height: 40px;
+    #label-auth {
+        font-size: 11px;
     }
 
-    /* Buscador */
+    /* Título en flujo normal */
+    .titulo {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        font-size: 20px;
+        white-space: normal;
+        width: 90%;
+        letter-spacing: 0px;
+        margin: 10px 0 0;
+        text-align: center;
+    }
+
+    /* Huellas en flujo normal */
+    .huellas {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+        margin: 6px 0;
+    }
+
+    /* Buscador en flujo normal */
     .bloque {
-        top: 230px;
-        width: calc(90vw - 60px);
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: calc(90% - 30px);
         height: auto;
         padding: 15px;
+        margin: 8px 0;
     }
 
     .buscador {
         font-size: 15px;
-        width: 90%;
     }
 
-    /* Tabla de resultados */
+    /* Tabla de resultados en flujo normal */
     .bloqueResultados {
-        top: 360px;
-        width: calc(95vw - 40px);
-        max-height: 250px;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: calc(95% - 20px);
+        max-height: 300px;
         padding: 10px;
         overflow-x: auto;
+        margin: 8px 0;
     }
 
     /* La tabla necesita scroll horizontal en móvil */
@@ -497,7 +542,7 @@ body {
     .fila {
         grid-template-columns: 45px repeat(8, minmax(70px, 1fr));
         gap: 5px;
-        min-width: 600px; /* permite scroll horizontal */
+        min-width: 600px;
     }
 
     .atributo {
