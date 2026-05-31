@@ -3,30 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="description" content="Daily Hogwarts guessing game. Try to guess which Harry Potter character appears today in this magical interactive experience.">
-    <meta name="keywords" content="Hogwarts, Harry Potter, web game, guessing game, fun, daily challenge, wizarding world, magic, characters">
+
+    <!-- SEO principal -->
+    <title>Who Is In Hogwarts Today? – Daily Harry Potter Guessing Game</title>
+    <meta name="description" content="Guess the secret Harry Potter character of the day! A daily Wordle-style game set in the wizarding world. New character every day — can you catch the prowler?">
+    <meta name="keywords" content="Harry Potter game, Hogwarts guessing game, daily Harry Potter, Wordle Harry Potter, wizarding world game, adivina personaje Harry Potter, juego Harry Potter diario">
     <meta name="author" content="Raúl Val Iturbide">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://whoisinhogwartstoday.com/">
 
-    <!-- Esto es para Open Graph-->
-    <meta property="og:type" content="website"> 
-    <meta property="og:title" content="Who is in Hogwarts Today?"> 
-    <meta property="og:description" content="Today’s character is a mystery… can you guess who it is?"> 
-    <meta property="og:url" content="https://whoisinhogwartstoday.com"> 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Who Is In Hogwarts Today?">
+    <meta property="og:title" content="Who Is In Hogwarts Today? – Daily Harry Potter Guessing Game">
+    <meta property="og:description" content="Guess the secret Harry Potter character of the day! A daily Wordle-style game set in the wizarding world.">
+    <meta property="og:url" content="https://whoisinhogwartstoday.com/">
     <meta property="og:image" content="https://whoisinhogwartstoday.com/img/hogwartsFondo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:locale:alternate" content="es_ES">
 
-    <!-- Especifico para twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Who is in Hogwarts Today?">
-    <meta name="twitter:description" content="Today’s character is a mystery… can you guess who it is?">
+    <meta name="twitter:site" content="@WhoIsInHogwarts">
+    <meta name="twitter:title" content="Who Is In Hogwarts Today? – Daily Harry Potter Guessing Game">
+    <meta name="twitter:description" content="Guess the secret Harry Potter character of the day! New character every day.">
     <meta name="twitter:image" content="https://whoisinhogwartstoday.com/img/hogwartsFondo.png">
 
-
-    <link rel="stylesheet" href="css/style.css"/>
+    <!-- Iconos y tema -->
     <link rel="icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <meta name="theme-color" content="#1a0a2e">
 
-    <title>WIIHT-Who Is In Hogwarts Today?</title>
+    <!-- Datos estructurados JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Who Is In Hogwarts Today?",
+        "url": "https://whoisinhogwartstoday.com/",
+        "description": "A daily Wordle-style guessing game based on Harry Potter characters. Guess who is prowling around Hogwarts today.",
+        "applicationCategory": "Game",
+        "genre": "Puzzle",
+        "inLanguage": ["en", "es"],
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Raúl Val Iturbide"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
     <img src="img/hogwartsFondo.png" class="fondo">
@@ -40,7 +75,10 @@
     <div class="opciones">
         <img id="IdiomaSpain" src="img/SpainFlag.svg">
         <img id="IdiomaEnglish" src="img/EnglishFlag.png">
-        <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">
+        <div id="btn-camara-wrapper" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <span id="label-auth" style="font-family:Georgia,serif;font-size:13px;color:#c9a87a;letter-spacing:0.5px;white-space:nowrap;">Inicia sesión</span>
+            <img id="AjustesCamaraSecreta" src="img/Ajustes_CamaraSecretaSimbolo.png">
+        </div>
     </div>
 
     <!-- PoP UP para el login/registro-->
@@ -60,7 +98,7 @@
                     <input type="email" placeholder="tu@email.com" required>
                     <label>Contraseña</label>
                     <div class="input-pass">
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" class="input-password" placeholder="••••••••" required>
                         <button type="button" class="btn-ojo" aria-label="Mostrar contraseña">👁</button>
                     </div>
                     <button type="submit" class="btn-primary">Entrar</button>
@@ -77,7 +115,7 @@
                     <input type="email" placeholder="tu@email.com" required>
                     <label>Contraseña</label>
                     <div class="input-pass">
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" class="input-password" placeholder="••••••••" required>
                         <button type="button" class="btn-ojo" aria-label="Mostrar contraseña">👁</button>
                     </div>
                     <label class="label-solemne">

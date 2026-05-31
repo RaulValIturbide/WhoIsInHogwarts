@@ -74,7 +74,9 @@
         "btn_login": "Log in",
         "btn_register": "Sign up",
         "solemne": "I solemnly swear that I am up to no good",
-        "logout": "Mischief managed (log out)"
+        "logout": "Mischief managed (log out)",
+        "label_login": "Log in",
+        "label_conectado": "Connected"
     },
 
     "album": {

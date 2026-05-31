@@ -29,34 +29,51 @@ function aplicarTraducciones() {
     if (traducciones.modal) {
         const m = traducciones.modal;
         const tabs = document.querySelectorAll(".tab-btn");
-        tabs[0].textContent = m.tab_login;
-        tabs[1].textContent = m.tab_register;
+        if (tabs[0]) tabs[0].textContent = m.tab_login;
+        if (tabs[1]) tabs[1].textContent = m.tab_register;
 
-        document.querySelector("#tab-login h2").textContent    = m.login_title;
-        document.querySelector("#tab-register h2").textContent = m.register_title;
+        const loginH2  = document.querySelector("#tab-login h2");
+        const registerH2 = document.querySelector("#tab-register h2");
+        if (loginH2)    loginH2.textContent    = m.login_title;
+        if (registerH2) registerH2.textContent = m.register_title;
 
         const labelsLogin = document.querySelectorAll("#tab-login label");
-        labelsLogin[0].textContent = m.label_email;
-        labelsLogin[1].textContent = m.label_password;
+        if (labelsLogin[0]) labelsLogin[0].textContent = m.label_email;
+        if (labelsLogin[1]) labelsLogin[1].textContent = m.label_password;
 
         const labelsReg = document.querySelectorAll("#tab-register label");
-        labelsReg[0].textContent = m.label_name;
-        labelsReg[1].textContent = m.label_email;
-        labelsReg[2].textContent = m.label_password;
+        if (labelsReg[0]) labelsReg[0].textContent = m.label_name;
+        if (labelsReg[1]) labelsReg[1].textContent = m.label_email;
+        if (labelsReg[2]) labelsReg[2].textContent = m.label_password;
 
-        document.querySelector("#form-login input[type='email']").placeholder       = m.placeholder_email;
-        document.querySelector("#form-login input[type='password']").placeholder    = m.placeholder_password;
-        document.querySelector("#form-register input[type='text']").placeholder     = m.placeholder_name;
-        document.querySelector("#form-register input[type='email']").placeholder    = m.placeholder_email;
-        document.querySelector("#form-register input[type='password']").placeholder = m.placeholder_password;
+        const fLoginEmail = document.querySelector("#form-login input[type='email']");
+        const fLoginPass  = document.querySelector("#form-login .input-password");
+        const fRegName    = document.querySelector("#form-register input[type='text']");
+        const fRegEmail   = document.querySelector("#form-register input[type='email']");
+        const fRegPass    = document.querySelector("#form-register .input-password");
+        const btnLogin    = document.querySelector("#form-login .btn-primary");
+        const btnReg      = document.querySelector("#form-register .btn-primary");
 
-        document.querySelector("#form-login .btn-primary").textContent    = m.btn_login;
-        document.querySelector("#form-register .btn-primary").textContent = m.btn_register;
+        if (fLoginEmail) fLoginEmail.placeholder = m.placeholder_email;
+        if (fLoginPass)  fLoginPass.placeholder  = m.placeholder_password;
+        if (fRegName)    fRegName.placeholder     = m.placeholder_name;
+        if (fRegEmail)   fRegEmail.placeholder    = m.placeholder_email;
+        if (fRegPass)    fRegPass.placeholder     = m.placeholder_password;
+        if (btnLogin)    btnLogin.textContent     = m.btn_login;
+        if (btnReg)      btnReg.textContent       = m.btn_register;
         if (m.solemne) {
             const textoSolemne = document.getElementById("texto-solemne");
             if (textoSolemne) textoSolemne.textContent = m.solemne;
         }
         window._tradModal = m;
+
+        // Actualizar label de auth según estado actual
+        const labelAuth = document.getElementById("label-auth");
+        if (labelAuth) {
+            labelAuth.textContent = window._firebaseUser
+                ? (m.label_conectado || "Conectado")
+                : (m.label_login || "Inicia sesión");
+        }
     }
 
     // Traducir album
@@ -103,6 +120,29 @@ await cargarIdioma(gestorIdioma.DetectarIdioma());
 aplicarTraducciones();
 
 
+// 5. ACTIVAR BOTONES DE IDIOMA (antes del cargarDatos para que funcionen desde el inicio)
+
+document.getElementById("IdiomaSpain").onclick = () => {
+    cargarIdioma("es").then(() => {
+        aplicarTraducciones();
+        if (gestorBusqueda) {
+            gestorBusqueda.traducciones = traducciones;
+            gestorBusqueda.repintarIntentos();
+        }
+    });
+};
+
+document.getElementById("IdiomaEnglish").onclick = () => {
+    cargarIdioma("en").then(() => {
+        aplicarTraducciones();
+        if (gestorBusqueda) {
+            gestorBusqueda.traducciones = traducciones;
+            gestorBusqueda.repintarIntentos();
+        }
+    });
+};
+
+
 // 4. CARGAR PERSONAJES Y CREAR GESTORBUSQUEDA
 
 gestorPersonaje.CargarDatosJSON(listaPersonajes).then(() => {
@@ -119,24 +159,6 @@ gestorPersonaje.CargarDatosJSON(listaPersonajes).then(() => {
    //PRUEBAS
    // gestorBusqueda.setPersonajeSecreto(listaPersonajes[2]);
 
-    // 5. ACTIVAR BOTONES DE IDIOMA 
-
-    document.getElementById("IdiomaSpain").onclick = () => {
-        cargarIdioma("es").then(() => {
-            aplicarTraducciones();
-            gestorBusqueda.traducciones = traducciones;
-            gestorBusqueda.repintarIntentos();
-        });
-    };
-
-    document.getElementById("IdiomaEnglish").onclick = () => {
-        cargarIdioma("en").then(() => {
-            aplicarTraducciones();
-            gestorBusqueda.traducciones = traducciones;
-            gestorBusqueda.repintarIntentos();
-        });
-    };
-
     // 6. BOTÓN DADOS
     document.getElementById("btn-dados").onclick = () => {
         const yaUsados = new Set(gestorBusqueda.historialIntentos.map(p => p.nombre));
@@ -149,5 +171,6 @@ gestorPersonaje.CargarDatosJSON(listaPersonajes).then(() => {
     // 7. Exponer gestorBusqueda globalmente para firebase.js (logout reset)
     window._gestorBusqueda = gestorBusqueda;
     window._aplicarTraducciones = aplicarTraducciones;
+    window._aplicarTraducciones(); // aplicar idioma actual al exponer la función
 
 });

@@ -36,6 +36,8 @@ const db   = getFirestore(app);
 // ── UI helpers ───────────────────────────────────────────────────────────────
 const modal       = document.getElementById("Caja_Login");
 const camaraIcon  = document.getElementById("AjustesCamaraSecreta");
+const camaraWrapper = document.getElementById("btn-camara-wrapper");
+const labelAuth   = document.getElementById("label-auth");
 const modalInnerOriginal = document.querySelector(".modal-inner").innerHTML;
 const errorLogin  = crearMensajeError("form-login");
 const errorReg    = crearMensajeError("form-register");
@@ -74,12 +76,15 @@ function mostrarExito(nombre) {
 }
 
 function actualizarIcono(user) {
+    const t = window._tradModal;
     if (user) {
         camaraIcon.style.filter = "drop-shadow(0 0 8px #4fc3f7)";
         camaraIcon.title = user.displayName || user.email;
+        labelAuth.textContent = t?.label_conectado || "Conectado";
     } else {
         camaraIcon.style.filter = "drop-shadow(0 0 5px gold)";
         camaraIcon.title = "";
+        labelAuth.textContent = t?.label_login || "Inicia sesión";
     }
 }
 
@@ -90,7 +95,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ── Abrir modal según estado de sesión ────────────────────────────────────────
-camaraIcon.addEventListener("click", () => {
+camaraWrapper.addEventListener("click", () => {
     const user = window._firebaseUser;
     if (user) {
         mostrarPerfil(user);
@@ -163,7 +168,7 @@ function reengacharFormularios() {
 
         const nombre = e.target.querySelector('input[type="text"]').value.trim();
         const email  = e.target.querySelector('input[type="email"]').value.trim();
-        const pass   = e.target.querySelector('input[type="password"]').value;
+        const pass   = e.target.querySelector('.input-password').value;
 
         try {
             const { user } = await createUserWithEmailAndPassword(auth, email, pass);
@@ -184,7 +189,7 @@ function reengacharFormularios() {
         limpiarError(errEl);
 
         const email = e.target.querySelector('input[type="email"]').value.trim();
-        const pass  = e.target.querySelector('input[type="password"]').value;
+        const pass  = e.target.querySelector('.input-password').value;
 
         try {
             await signInWithEmailAndPassword(auth, email, pass);
@@ -331,7 +336,7 @@ async function abrirAlbum(user) {
                             <div class="album-cromo-intentos">${d.intentos} ${intentosLabel}</div>
                             ${fecha ? `<div class="album-cromo-fecha">${fecha}</div>` : ""}
                         `;
-                        el.addEventListener("dblclick", () => abrirLightbox(d, intentosLabel));
+                        el.addEventListener("click", () => abrirLightbox(d, intentosLabel));
                     } else {
                         el.className = "album-cromo-placeholder";
                         el.innerHTML = `

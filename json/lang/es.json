@@ -74,7 +74,9 @@
         "btn_login": "Entrar",
         "btn_register": "Registrarse",
         "solemne": "Juro solemnemente que mis intenciones no son buenas",
-        "logout": "Travesura realizada (cerrar sesion)"
+        "logout": "Travesura realizada (cerrar sesion)",
+        "label_login": "Inicia sesión",
+        "label_conectado": "Conectado"
     },
 
     "album": {
