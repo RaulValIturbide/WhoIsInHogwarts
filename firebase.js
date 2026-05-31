@@ -92,9 +92,22 @@ function actualizarIcono(user) {
 }
 
 // ── Auth state ────────────────────────────────────────────────────────────────
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     actualizarIcono(user);
     window._firebaseUser = user || null;
+
+    // Si acaba de loguearse y hay un personaje pendiente, guardarlo
+    if (user && window._pendingCharacter) {
+        const { personaje, intentos, traducciones } = window._pendingCharacter;
+        window._pendingCharacter = null;
+        const btnReg = document.getElementById("btn-registrate-ganador");
+        if (btnReg) btnReg.style.display = "none";
+        if (typeof window.guardarPersonajeAdivinado === "function") {
+            window.guardarPersonajeAdivinado(personaje, intentos, traducciones);
+        }
+        // Mostrar el cromo de nuevo para que vea el mensaje de colección
+        document.querySelector(".CromoPersonajeSecreto").classList.add("mostrar");
+    }
 });
 
 // ── Abrir modal según estado de sesión ────────────────────────────────────────

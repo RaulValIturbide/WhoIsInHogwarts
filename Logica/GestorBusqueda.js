@@ -102,9 +102,23 @@ pintarResultadoJugador(personajeElegido, personajeSecreto) {
                             cromo.classList.remove("mostrar");
                         };
 
-                        // Guardar en Firestore
-                        if (typeof window.guardarPersonajeAdivinado === "function") {
-                            window.guardarPersonajeAdivinado(personajeSecreto, n, this.traducciones);
+                        // Guardar en Firestore o mostrar botón de registro
+                        if (window._firebaseUser) {
+                            if (typeof window.guardarPersonajeAdivinado === "function") {
+                                window.guardarPersonajeAdivinado(personajeSecreto, n, this.traducciones);
+                            }
+                        } else {
+                            // Guardar pendiente para cuando se registre
+                            window._pendingCharacter = { personaje: personajeSecreto, intentos: n, traducciones: this.traducciones };
+                            const btnReg = document.getElementById("btn-registrate-ganador");
+                            if (btnReg) {
+                                btnReg.textContent = this.traducciones.btn_registrate || "💾 Guarda tu cromo — ¡Regístrate!";
+                                btnReg.style.display = "block";
+                                btnReg.onclick = () => {
+                                    document.querySelector(".CromoPersonajeSecreto").classList.remove("mostrar");
+                                    document.getElementById("Caja_Login").classList.add("open");
+                                };
+                            }
                         }
                     }
                 }
