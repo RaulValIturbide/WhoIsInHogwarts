@@ -582,9 +582,9 @@ body {
     }
 
     .fila {
-        grid-template-columns: 38px repeat(8, minmax(55px, 1fr));
-        gap: 3px;
-        min-width: 500px;
+        grid-template-columns: 38px repeat(8, minmax(72px, 1fr));
+        gap: 4px;
+        min-width: 620px;
     }
 
     .atributo {
@@ -624,14 +624,17 @@ body {
     /* Lightbox cromo en móvil */
     #cromo-lightbox-scroll {
         align-items: flex-start;
-        padding: 16px;
+        justify-content: flex-start;
+        padding: 0;
+        overflow-x: hidden;
     }
 
     #cromo-lightbox-inner {
         flex-direction: column;
-        width: 100%;
+        width: calc(100% - 32px);
         max-width: none;
         overflow: visible;
+        margin: 60px 16px 30px;
     }
 
     #cromo-lightbox-imagen {
