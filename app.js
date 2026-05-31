@@ -70,6 +70,10 @@ function aplicarTraducciones() {
         if (_popupTexto) _popupTexto.textContent = traducciones.how_to_play || "";
 
         // Actualizar label de auth según estado actual
+        const btnGoogleText = document.getElementById("btn-google-text");
+        if (btnGoogleText) btnGoogleText.textContent = m.btn_google || "Continue with Google";
+        const modalDividerText = document.getElementById("modal-divider-text");
+        if (modalDividerText) modalDividerText.textContent = m.modal_o || "or";
         const labelAuth = document.getElementById("label-auth");
         if (labelAuth) {
             labelAuth.textContent = window._firebaseUser

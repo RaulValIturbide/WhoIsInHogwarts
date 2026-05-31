@@ -5,7 +5,9 @@ import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged,
-    updateProfile
+    updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
     getFirestore,
@@ -29,9 +31,10 @@ const firebaseConfig = {
     measurementId: "G-L52V4GY7WQ"
 };
 
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
+const app      = initializeApp(firebaseConfig);
+const auth     = getAuth(app);
+const db       = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
 // ── UI helpers ───────────────────────────────────────────────────────────────
 const modal       = document.getElementById("Caja_Login");
@@ -220,10 +223,36 @@ function reengacharFormularios() {
         });
     });
 
+    // Botón Google
+    const btnGoogle = document.getElementById("btn-google");
+    if (btnGoogle) btnGoogle.onclick = loginConGoogle;
+
     // Botón cerrar
     document.getElementById("Close_Login").addEventListener("click", () => {
         modal.classList.remove("open");
     });
+}
+
+async function loginConGoogle() {
+    try {
+        const { user } = await signInWithPopup(auth, provider);
+        // Crear doc en Firestore si es la primera vez
+        const docRef = doc(db, "users", user.uid);
+        const snap   = await getDoc(docRef);
+        if (!snap.exists()) {
+            await setDoc(docRef, {
+                nombre: user.displayName || "Merodeador",
+                email:  user.email,
+                creadoEn: serverTimestamp(),
+                partidasJugadas: 0
+            });
+        }
+        modal.classList.remove("open");
+    } catch (err) {
+        if (err.code !== "auth/popup-closed-by-user") {
+            console.error("Error Google login:", err);
+        }
+    }
 }
 
 // Primera carga

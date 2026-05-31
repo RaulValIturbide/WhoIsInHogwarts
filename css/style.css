@@ -888,6 +888,45 @@ body {
     transform: translateY(-1px);
 }
 
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px;
+    background: #fff;
+    color: #3c3c3c;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.1s;
+    margin-bottom: 4px;
+}
+.btn-google:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+}
+
+.modal-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 10px;
+    color: #5a3e1b;
+    font-size: 13px;
+}
+.modal-divider::before,
+.modal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #5a3e1b;
+    opacity: 0.4;
+}
+
 /* ===== ALBUM DE CROMOS ===== */
 #album-overlay {
     display: none;

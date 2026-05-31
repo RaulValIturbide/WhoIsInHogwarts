@@ -77,6 +77,8 @@
         "btn_register": "Sign up",
         "solemne": "I solemnly swear that I am up to no good",
         "logout": "Mischief managed (log out)",
+        "btn_google": "Continue with Google",
+        "modal_o": "or",
         "label_login": "Log in",
         "label_conectado": "Connected"
     },

@@ -77,6 +77,8 @@
         "btn_register": "Registrarse",
         "solemne": "Juro solemnemente que mis intenciones no son buenas",
         "logout": "Travesura realizada (cerrar sesion)",
+        "btn_google": "Continuar con Google",
+        "modal_o": "o",
         "label_login": "Inicia sesión",
         "label_conectado": "Conectado"
     },
