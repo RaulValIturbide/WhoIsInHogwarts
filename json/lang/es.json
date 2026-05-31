@@ -54,6 +54,8 @@
         "same": "Edad del merodeador"
     },
 
+    "how_to_play": "Escribe un nombre en la barra de personajes e intenta adivinar si es nuestro Merodeador. Aparecerán los detalles del personaje que hayas seleccionado:\n🔴 Rojo → Diferente a nuestro Merodeador\n🟢 Verde → Igual que nuestro Merodeador\n🟡 Amarillo → Indeterminado\n\nAyúdate de las coincidencias o no coincidencias para adivinar el merodeador de hoy.",
+
     "win_message": "¡Has ganado! El merodeador era ",
     "win_intentos": "Lo conseguiste en {n} intentos",
     "win_nuevo_cromo": "¡Has conseguido un nuevo cromo!",

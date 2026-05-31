@@ -66,6 +66,8 @@ function aplicarTraducciones() {
             if (textoSolemne) textoSolemne.textContent = m.solemne;
         }
         window._tradModal = m;
+        const _popupTexto = document.getElementById("popup-info-texto");
+        if (_popupTexto) _popupTexto.textContent = traducciones.how_to_play || "";
 
         // Actualizar label de auth según estado actual
         const labelAuth = document.getElementById("label-auth");
@@ -158,6 +160,24 @@ gestorPersonaje.CargarDatosJSON(listaPersonajes).then(() => {
 
    //PRUEBAS
    // gestorBusqueda.setPersonajeSecreto(listaPersonajes[2]);
+
+    // 6. BOTÓN INFO
+    const btnInfo    = document.getElementById("btn-info");
+    const popupInfo  = document.getElementById("popup-info");
+    const popupTexto = document.getElementById("popup-info-texto");
+    const popupClose = document.getElementById("popup-info-close");
+
+    btnInfo.onclick = (e) => {
+        e.stopPropagation();
+        popupTexto.textContent = traducciones.how_to_play || "";
+        popupInfo.style.display = popupInfo.style.display === "none" ? "block" : "none";
+    };
+    popupClose.onclick = () => { popupInfo.style.display = "none"; };
+    document.addEventListener("click", (e) => {
+        if (!popupInfo.contains(e.target) && e.target !== btnInfo) {
+            popupInfo.style.display = "none";
+        }
+    });
 
     // 6. BOTÓN DADOS
     document.getElementById("btn-dados").onclick = () => {
